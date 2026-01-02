@@ -1,0 +1,250 @@
+/* ==============================
+   GLOBAL DARK THEME (ALL PAGES)
+   ============================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: radial-gradient(circle at top, #0f172a, #020617);
+    color: #e5e7eb;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    min-height: 100vh;
+}
+
+/* ==============================
+   CONTAINER & CARD
+   ============================== */
+
+.container {
+    max-width: 720px;
+}
+
+.card {
+    background: linear-gradient(145deg, #020617, #020617);
+    border-radius: 16px;
+    padding: 30px;
+    border: 1px solid #1e293b;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+}
+
+/* ==============================
+   HEADINGS & TEXT
+   ============================== */
+
+h1, h2, h3 {
+    color: #93c5fd;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+p {
+    color: #cbd5f5;
+    text-align: center;
+}
+
+/* ==============================
+   INPUTS & SELECT
+   ============================== */
+
+.form-control, select {
+    background-color: #020617;
+    color: #e5e7eb;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.form-control::placeholder {
+    color: #94a3b8;
+}
+
+.form-control:focus, select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 8px rgba(59,130,246,0.4);
+}
+
+/* ==============================
+   BUTTONS
+   ============================== */
+
+.btn {
+    border-radius: 12px;
+    font-weight: 500;
+    padding: 10px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    border: none;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #16a34a, #15803d);
+    border: none;
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #0284c7, #0369a1);
+    border: none;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #ca8a04, #a16207);
+    border: none;
+    color: #020617;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    border: none;
+}
+
+.btn-dark {
+    background: linear-gradient(135deg, #020617, #020617);
+    border: 1px solid #334155;
+}
+
+/* ==============================
+   LISTS (RESULTS)
+   ============================== */
+
+.list-group-item {
+    background-color: #020617;
+    color: #e5e7eb;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    margin-bottom: 8px;
+}
+
+/* ==============================
+   ALERTS
+   ============================== */
+
+.alert-success {
+    background-color: #064e3b;
+    color: #d1fae5;
+    border: none;
+    border-radius: 10px;
+}
+
+.alert-danger {
+    background-color: #7f1d1d;
+    color: #fee2e2;
+    border: none;
+    border-radius: 10px;
+}
+
+/* ==============================
+   LINKS
+   ============================== */
+
+a {
+    color: #60a5fa;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ==============================
+   HOME PAGE SPECIAL STYLE
+   ============================== */
+
+.home-title {
+    font-size: 2.3rem;
+    font-weight: 700;
+}
+
+.home-sub {
+    font-size: 1.1rem;
+    color: #94a3b8;
+    margin-bottom: 25px;
+}
+
+.home-buttons .btn {
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+/* ==============================
+   DARK MODE FORM NAV BUTTONS
+   ============================== */
+
+.nav-btn {
+    padding: 10px 22px;
+    border-radius: 10px;
+    border: none;
+    background: #020617;
+    color: #e5e7eb;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow:
+        inset 0 0 0 1px #1e293b,
+        0 6px 18px rgba(0, 0, 0, 0.8);
+    transition: all 0.25s ease;
+}
+
+.nav-btn:hover {
+    background: #020617;
+    box-shadow:
+        inset 0 0 0 1px #3b82f6,
+        0 10px 25px rgba(0, 0, 0, 0.9);
+    transform: translateY(-1px);
+}
+
+.home-btn {
+    color: #93c5fd;
+}
+
+.back-btn {
+    color: #86efac;
+}
+/* ===============================
+   DARK MODE INPUT VISIBILITY FIX
+   =============================== */
+
+input,
+select,
+textarea {
+    background-color: #020617 !important;
+    color: #e5e7eb !important;
+    border: 1px solid #334155 !important;
+    caret-color: #e5e7eb;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #94a3b8 !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    background-color: #020617 !important;
+    color: #e5e7eb !important;
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 6px rgba(59,130,246,0.4);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #e5e7eb !important;
+    -webkit-box-shadow: 0 0 0px 1000px #020617 inset !important;
+}
+
+option {
+    background-color: #020617;
+    color: #e5e7eb;
+}
+
+label {
+    color: #e5e7eb;
+}
