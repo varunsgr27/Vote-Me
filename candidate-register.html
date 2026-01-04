@@ -11,18 +11,23 @@
   <div class="card p-4">
     <h2>Volunteer / Candidate Registration</h2>
 
-    <form id="candidateForm">
-      <input class="form-control mb-2" id="cName" placeholder="Name" required>
-      <input class="form-control mb-2" id="cUsn" placeholder="Student ID" required>
+<form id="candidateForm">
+    <input id="cName" class="form-control mb-2" placeholder="Volunteer Name" required>
 
-      <select class="form-control mb-2" id="cPost" required>
-        <option value="">Select Position</option>
+    <input id="cUsn" class="form-control mb-2" placeholder="Student ID / USN" required>
+
+    <select id="cPost" class="form-control mb-2" required>
+        <option value="">Select Role</option>
         <option value="CR">Class Representative</option>
         <option value="President">College President</option>
-      </select>
+    </select>
 
-      <button class="btn btn-info w-100">Register as Candidate</button>
-    </form>
+    <button class="btn btn-primary w-100">Register Volunteer</button>
+</form>
+
+<div id="cMsg" class="alert alert-success d-none mt-3">
+    Volunteer registered successfully
+</div>
 
     <div id="cMsg" class="alert alert-success mt-3 d-none">
       Candidate registered successfully
