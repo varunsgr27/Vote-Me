@@ -1,36 +1,169 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Vote</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
+// ================================
+// STORAGE HELPERS
+// ================================
+const getData = key => JSON.parse(localStorage.getItem(key)) || [];
+const saveData = (key, data) => localStorage.setItem(key, JSON.stringify(data));
 
-<body>
-<div class="container mt-5">
-  <div class="card p-4">
-    <h2>Cast Your Vote</h2>
+// ================================
+// STUDENT REGISTRATION
+// ================================
+const registerForm = document.getElementById("registerForm");
+if (registerForm) {
+  registerForm.addEventListener("submit", e => {
+    e.preventDefault();
 
-    <form id="voteForm">
+    const students = getData("STUDENTS");
+    const voterId = voterIdInput.value;
 
-        <!-- CR SECTION -->
-        <h4 class="mt-3">Vote for Class Representative (CR)</h4>
-        <div id="crList" class="mb-4"></div>
+    if (students.some(s => s.voterId === voterId)) {
+      alert("Student already registered");
+      return;
+    }
 
-        <!-- PRESIDENT SECTION -->
-        <h4 class="mt-3">Vote for College President</h4>
-        <div id="presidentList" class="mb-4"></div>
+    students.push({
+      name: name.value,
+      voterId,
+      department: department.value,
+      year: year.value,
+      section: section.value,
+      age: age.value,
+      hasVoted: false
+    });
 
-        <!-- ONE SUBMIT BUTTON -->
-        <button type="submit" class="btn btn-success w-100 mt-3">
-            Submit Vote
-        </button>
+    saveData("STUDENTS", students);
+    msg.classList.remove("d-none");
 
-    </form>
+    setTimeout(() => location.href = "login.html", 1500);
+  });
+}
 
-  </div>
-</div>
+// ================================
+// STUDENT LOGIN
+// ================================
+const loginForm = document.getElementById("loginForm");
+if (loginForm) {
+  loginForm.addEventListener("submit", e => {
+    e.preventDefault();
+    const id = loginId.value;
+    const students = getData("STUDENTS");
 
-<script src="script.js"></script>
-</body>
-</html>
+    const user = students.find(s => s.voterId === id);
+    if (!user) return alert("Invalid Student ID");
+
+    localStorage.setItem("CURRENT_USER", id);
+    location.href = "vote.html";
+  });
+}
+
+// ================================
+// CANDIDATE REGISTRATION
+// ================================
+const candidateForm = document.getElementById("candidateForm");
+if (candidateForm) {
+  candidateForm.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const candidates = getData("CANDIDATES");
+
+    candidates.push({
+      name: cName.value,
+      usn: cUsn.value,
+      post: cPost.value
+    });
+
+    saveData("CANDIDATES", candidates);
+    cMsg.classList.remove("d-none");
+    candidateForm.reset();
+  });
+}
+
+// ================================
+// LOAD VOTE PAGE
+// ================================
+document.addEventListener("DOMContentLoaded", () => {
+  if (!location.pathname.includes("vote.html")) return;
+
+  const candidates = getData("CANDIDATES");
+  const crList = document.getElementById("crList");
+  const presList = document.getElementById("presidentList");
+
+  candidates.forEach((c, i) => {
+    const html = `
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="${c.post}"
+               value="${i}" required>
+        <label class="form-check-label">
+          ${c.name} (${c.usn})
+        </label>
+      </div>`;
+
+    c.post === "CR"
+      ? crList.insertAdjacentHTML("beforeend", html)
+      : presList.insertAdjacentHTML("beforeend", html);
+  });
+});
+
+// ================================
+// SUBMIT VOTE
+// ================================
+const voteForm = document.getElementById("voteForm");
+if (voteForm) {
+  voteForm.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const votes = getData("VOTES");
+    const students = getData("STUDENTS");
+    const userId = localStorage.getItem("CURRENT_USER");
+
+    const user = students.find(s => s.voterId === userId);
+    if (user.hasVoted) return alert("Already voted");
+
+    ["CR", "President"].forEach(post => {
+      const choice = document.querySelector(`input[name="${post}"]:checked`);
+      if (choice) {
+        votes[choice.value] = (votes[choice.value] || 0) + 1;
+      }
+    });
+
+    user.hasVoted = true;
+    saveData("STUDENTS", students);
+    saveData("VOTES", votes);
+
+    alert("Vote submitted successfully");
+    location.href = "result.html";
+  });
+}
+
+// ================================
+// SHOW RESULTS
+// ================================
+function showResults() {
+  const candidates = getData("CANDIDATES");
+  const votes = getData("VOTES");
+
+  const crList = document.getElementById("crResultList");
+  const presList = document.getElementById("presidentResultList");
+
+  candidates.forEach((c, i) => {
+    const li = `<li class="list-group-item">
+      ${c.name} – ${votes[i] || 0} votes
+    </li>`;
+
+    c.post === "CR"
+      ? crList.innerHTML += li
+      : presList.innerHTML += li;
+  });
+}
+
+// ================================
+// ADMIN
+// ================================
+function loadAdminResults() {
+  showResults();
+}
+
+function resetElection() {
+  localStorage.clear();
+  alert("Election Reset");
+  location.reload();
+}
